@@ -1,0 +1,6 @@
+here are the main design patterns in the Java
+
+useful links:
+https://en.wikipedia.org/wiki/Software_design_pattern
+https://refactoring.guru/ru/design-patterns/what-is-pattern
+http://www.javenue.info/post/design-patterns-java
