@@ -15,7 +15,7 @@
     </scm>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
 
@@ -30,6 +30,8 @@
         <mockito-core.version>2.1.0</mockito-core.version>
         <lombok.version>1.18.34</lombok.version>
         <slf4j.version>1.7.32</slf4j.version>
+
+        <querydsl.version>5.1.0</querydsl.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
@@ -102,12 +104,52 @@
             <version>${HikariCP.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.1.Final</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${querydsl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-core</artifactId>
+            <version>${querydsl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>${querydsl.version}</version>
+            <classifier>jpa</classifier>
+            <scope>provided</scope>
+        </dependency>
+
         <!--other-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>18.0.2</version>
         </dependency>
 
     </dependencies>
@@ -131,6 +173,35 @@
                 <configuration>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-maven-plugin</artifactId>
+                <version>${querydsl.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jpa-export</goal>
+                        </goals>
+                        <configuration>
+                            <targetFolder>target/generated-sources/querydsl</targetFolder>
+                            <packages>
+                                <package>com.hill.dbconnector.objects</package>
+                            </packages>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>your.main.Class</mainClass>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
